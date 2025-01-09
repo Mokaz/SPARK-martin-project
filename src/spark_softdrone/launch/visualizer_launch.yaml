@@ -1,0 +1,7 @@
+launch:
+
+- node:
+    pkg: "spark_softdrone"
+    exec: "visualizer"
+    name: "visualizer"
+    output: "screen"
