@@ -222,53 +222,69 @@ void OffboardControl::request_vehicle_command(uint16_t command, float param1, fl
  */
 void OffboardControl::timer_callback()
 {
-	static uint8_t num_of_steps = 0;
+    // OffboardControlMode and TrajectorySetpoint must be published at the same rate
+    publish_offboard_control_mode();
+    publish_trajectory_setpoint();
 
-	// OffboardControlMode and TrajectorySetpoint must be published at the same rate
-	publish_offboard_control_mode();
-	publish_trajectory_setpoint();
+    // We'll track how many times we've published
+    // before actually requesting Offboard mode.
+    static int pre_offboard_counter = 0; 
+    // If your timer is at 100 ms (10 Hz),
+    // then 10 cycles ~1 second, 20 cycles ~2 seconds, etc.
+    const int OFFBOARD_PUBLISH_COUNT_REQUIRED = 20; // ~2 seconds at 10 Hz
 
-	switch (state_) {
-	case State::init :
-		switch_to_offboard_mode();
-		state_ = State::offboard_requested;
-		break;
+    switch (state_) {
+    case State::init :
+        // Wait until we've published enough setpoints
+        if (pre_offboard_counter < OFFBOARD_PUBLISH_COUNT_REQUIRED) {
+            pre_offboard_counter++;
+        } else {
+            // Once we've published for ~2s, request offboard
+            RCLCPP_INFO(this->get_logger(), "Attempting to switch to Offboard mode now");
+            switch_to_offboard_mode();
+            state_ = State::offboard_requested;
+        }
+        break;
 
-	case State::offboard_requested :
-		if (service_done_) {
-			if (service_result_ == 0) {
-				RCLCPP_INFO(this->get_logger(), "Entered offboard mode");
-				state_ = State::wait_for_stable_offboard_mode;				
-			} else {
-				RCLCPP_ERROR(this->get_logger(), "Failed to enter offboard mode, exiting");
-				rclcpp::shutdown();
-			}
-		}
-		break;
+    case State::offboard_requested :
+        if (service_done_) {
+            if (service_result_ == 0) {
+                RCLCPP_INFO(this->get_logger(), "Entered offboard mode");
+                state_ = State::wait_for_stable_offboard_mode;
+            } else {
+                RCLCPP_ERROR(this->get_logger(), "Failed to enter offboard mode, exiting");
+                rclcpp::shutdown();
+            }
+        }
+        break;
 
-	case State::wait_for_stable_offboard_mode :
-		if (++num_of_steps > 10) {
-			arm();
-			state_ = State::arm_requested;
-		}
-		break;
+    case State::wait_for_stable_offboard_mode :
+        // In this state, you could wait again briefly before arming,
+        // if you want more time for the drone to stabilize in Offboard.
+        // For example, after 10 more cycles, request Arm:
+        if (++pre_offboard_counter > (OFFBOARD_PUBLISH_COUNT_REQUIRED + 10)) {
+            arm();
+            state_ = State::arm_requested;
+        }
+        break;
 
-	case State::arm_requested :
-		if (service_done_) {
-			if (service_result_ == 0) {
-				RCLCPP_INFO(this->get_logger(), "Vehicle is armed");
-				state_ = State::armed;
-			} else {
-				RCLCPP_ERROR(this->get_logger(), "Failed to arm, exiting");
-				rclcpp::shutdown();
-			}
-		}
-		break;
+    case State::arm_requested :
+        if (service_done_) {
+            if (service_result_ == 0) {
+                RCLCPP_INFO(this->get_logger(), "Vehicle is armed");
+                state_ = State::armed;
+            } else {
+                RCLCPP_ERROR(this->get_logger(), "Failed to arm, exiting");
+                rclcpp::shutdown();
+            }
+        }
+        break;
 
-	case State::armed:
-		// Once armed, you can stay in offboard and update setpoints in real-time!
-		break;
-	}
+    case State::armed :
+        // Once armed, you can keep updating setpoints in real-time
+        // or do whatever maneuvers you have planned.
+        break;
+    }
 }
 
 /**
