@@ -108,6 +108,7 @@ ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
   src/visualizer.py
+  src/setpoint_gui.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
