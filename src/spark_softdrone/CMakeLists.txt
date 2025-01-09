@@ -80,7 +80,7 @@ install(TARGETS frame_transforms
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 # Install tests
-install(DIRECTORY test DESTINATION share/${PROJECT_NAME}/)
+# install(DIRECTORY test DESTINATION share/${PROJECT_NAME}/)
 
 
 ############
@@ -106,9 +106,9 @@ endif()
 ament_python_install_package(${PROJECT_NAME})
 
 # Install Python executables
-# install(PROGRAMS
-#   src/examples/offboard_py/offboard_control.py
-#   DESTINATION lib/${PROJECT_NAME}
-# )
+install(PROGRAMS
+  src/visualizer.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()
