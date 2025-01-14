@@ -23,6 +23,7 @@
   <depend>sensor_msgs</depend>
   <depend>nav_msgs</depend>
   <depend>visualization_msgs</depend>
+  <depend>px4_ros2_cpp</depend>
 
   <depend>launch</depend>
   <depend>launch_testing</depend>
