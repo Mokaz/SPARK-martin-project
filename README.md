@@ -50,10 +50,6 @@ ros2 launch mavros px4.launch fcu_url:=serial:///dev/ttyTHS1:921600
 ```bash
 ros2 run spark_softdrone t265_to_mavros
 ```
-Or launch everything at once:
-```bash
-ros2 launch spark_softdrone mavros_t265_vio_launch.py
-```
 
 ## Example code
 1. Start and arm drone in offboard mode:
