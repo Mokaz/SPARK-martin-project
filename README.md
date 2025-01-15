@@ -52,7 +52,7 @@ ros2 run spark_softdrone t265_to_mavros
 ```
 
 ## Example code
-1. Start drone and arm drone in offboard mode:
+1. Start and arm drone in offboard mode:
 ```bash
 ros2 run spark_softdrone offboard_control_srv
 ```
