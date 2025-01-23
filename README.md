@@ -7,6 +7,7 @@ This repository contains the code for my work at SPARKlab during the IAP and spr
 - Ubuntu 22.04 LTS
 - ROS2 Humble
 - Intel® RealSense™ T265 camera
+- sudo apt-get install ros-humble-tf2 ros-humble-tf2-geometry-msgs
 
 ## Installation
 
