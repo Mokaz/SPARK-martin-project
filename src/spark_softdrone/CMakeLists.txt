@@ -53,11 +53,6 @@ add_executable(visualizer src/visualizer.cpp)
 ament_target_dependencies(visualizer rclcpp px4_msgs nav_msgs visualization_msgs)
 install(TARGETS visualizer DESTINATION lib/${PROJECT_NAME})
 
-# t265_to_px4.cpp
-add_executable(t265_to_px4 src/t265_to_px4.cpp)
-ament_target_dependencies(t265_to_px4 rclcpp Eigen3 px4_ros2_cpp nav_msgs)
-install(TARGETS t265_to_px4 DESTINATION lib/${PROJECT_NAME})
-
 # t265_to_mavros.cpp
 add_executable(t265_to_mavros src/t265_to_mavros.cpp)
 ament_target_dependencies(t265_to_mavros rclcpp nav_msgs geometry_msgs)
