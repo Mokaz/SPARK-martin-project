@@ -17,6 +17,9 @@ def generate_launch_description():
     mavros_launch_dir = os.path.join(
         get_package_share_directory('mavros'), 'launch'
     )
+    mavros_px4_config_dir = os.path.join(
+        get_package_share_directory('spark_softdrone'), 'launch', 'px4_config_spark.yaml'
+    )
 
     realsense_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -29,7 +32,8 @@ def generate_launch_description():
             os.path.join(mavros_launch_dir, 'px4.launch')
         ),
         launch_arguments={
-            'fcu_url': 'serial:///dev/ttyTHS1:921600'
+            'fcu_url': 'serial:///dev/ttyTHS1:921600',
+            'config_yaml': mavros_px4_config_dir
         }.items()
     )
 

@@ -30,6 +30,7 @@ find_package(rclpy REQUIRED)
 find_package(px4_ros2_cpp REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 #################
 # Setup targets #
@@ -62,7 +63,7 @@ install(TARGETS t265_to_mavros DESTINATION lib/${PROJECT_NAME})
 
 # px4_to_tf.cpp
 add_executable(px4_to_tf src/px4_to_tf.cpp)
-ament_target_dependencies(px4_to_tf rclcpp px4_msgs tf2 tf2_ros)
+ament_target_dependencies(px4_to_tf rclcpp px4_msgs tf2 tf2_ros tf2_geometry_msgs)
 install(TARGETS px4_to_tf DESTINATION lib/${PROJECT_NAME})
 
 

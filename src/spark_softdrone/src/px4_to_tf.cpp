@@ -2,8 +2,9 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <geometry_msgs/msg/quaternion.hpp>
-#include <px4_msgs/msg/vehicle_local_position.hpp> // Adjust if your .msg differs
+#include <geometry_msgs/msg/pose_stamped.hpp>
 #include <tf2/LinearMath/Quaternion.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
 class NEDToENUTransformNode : public rclcpp::Node
 {
@@ -12,42 +13,37 @@ public:
   {
     tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
-    sub_local_pos_ = this->create_subscription<px4_msgs::msg::VehicleLocalPosition>(
-      "/fmu/out/vehicle_local_position",
-      10,
+    auto qos = rclcpp::QoS(rclcpp::KeepLast(10));
+    qos.best_effort();        
+    qos.durability_volatile();
+
+    sub_local_pos_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
+      "/mavros/local_position/pose",
+      qos,
       std::bind(&NEDToENUTransformNode::localPositionCallback, this, std::placeholders::_1)
+    );
+
+    RCLCPP_INFO(
+      this->get_logger(),
+      "PX4 to TF node started"
     );
   }
 
 private:
-  void localPositionCallback(const px4_msgs::msg::VehicleLocalPosition::SharedPtr msg)
+  void localPositionCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
   {
-    // 1) Extract NED position
-    double xN = msg->x;   // North
-    double yE = msg->y;   // East
-    double zD = msg->z;   // Down
+    double x_enu = msg->pose.position.x;  // North
+    double y_enu = msg->pose.position.y;  // East
+    double z_enu = msg->pose.position.z;  // Down
 
-    // 2) Convert position from NED -> ENU
-    double x_enu = yE;
-    double y_enu = xN;
-    double z_enu = -zD;  // because NED z is "down"
+    tf2::Quaternion q_enu;
+    tf2::fromMsg(msg->pose.orientation, q_enu);
 
-    // 3) Convert heading (NED) -> yaw (ENU)
-    //
-    //    heading (NED) is measured from north toward east
-    //    yaw (ENU) is measured from +x (east) toward +y (north)
-    //    relation: yaw_enu = pi/2 - heading_ned
-    double heading_ned = msg->heading; // in radians, -PI..+PI
-    double yaw_enu = M_PI/2.0 - heading_ned;
+    double roll_enu, pitch_enu, yaw_enu;
+    tf2::Matrix3x3(q_enu).getRPY(roll_enu, pitch_enu, yaw_enu);
 
-    // 4) Create an orientation quaternion: (roll=0, pitch=0, yaw=yaw_enu)
-    tf2::Quaternion q;
-    q.setRPY(0.0, 0.0, yaw_enu);
-    q.normalize();
-
-    // 5) Build the transform message
     geometry_msgs::msg::TransformStamped transform;
-    transform.header.stamp = this->now();        // or msg->timestamp if synched
+    transform.header.stamp = this->now();        // or msg->header.stamp if synchronized
     transform.header.frame_id = "map";           // ENU world frame
     transform.child_frame_id = "base_link";      // must match your URDF base_link
 
@@ -55,16 +51,18 @@ private:
     transform.transform.translation.y = y_enu;
     transform.transform.translation.z = z_enu;
 
-    transform.transform.rotation.x = q.x();
-    transform.transform.rotation.y = q.y();
-    transform.transform.rotation.z = q.z();
-    transform.transform.rotation.w = q.w();
+    transform.transform.rotation = tf2::toMsg(q_enu);
 
-    // 6) Broadcast the transform
     tf_broadcaster_->sendTransform(transform);
+
+    RCLCPP_INFO(
+      this->get_logger(),
+      "ENU: x=%.5f, y=%.5f, z=%.5f, yaw=%.5f",
+      x_enu, y_enu, z_enu, yaw_enu
+    );
   }
 
-  rclcpp::Subscription<px4_msgs::msg::VehicleLocalPosition>::SharedPtr sub_local_pos_;
+  rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr sub_local_pos_;
   std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 };
 
