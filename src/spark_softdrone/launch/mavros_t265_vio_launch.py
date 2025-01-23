@@ -6,6 +6,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 from launch_ros.actions import Node
 
 
@@ -24,7 +25,7 @@ def generate_launch_description():
     )
 
     mavros_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
+        XMLLaunchDescriptionSource(
             os.path.join(mavros_launch_dir, 'px4.launch')
         ),
         launch_arguments={
@@ -40,7 +41,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        realsense_launch,
         mavros_launch,
+        realsense_launch,
         t265_to_mavros_node
     ])
