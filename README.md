@@ -51,6 +51,11 @@ ros2 launch mavros px4.launch fcu_url:=serial:///dev/ttyTHS1:921600
 ros2 run spark_softdrone t265_to_mavros
 ```
 
+Or launch everything at once:
+```bash
+ros2 launch spark_softdrone mavros_t265_vio_launch.py
+```
+
 ## Example code
 1. Start and arm drone in offboard mode:
 ```bash
@@ -59,6 +64,16 @@ ros2 run spark_softdrone offboard_control_srv
 2. Start GUI for publishing setpoints (on GCS computer):
 ```bash
 ros2 run spark_softdrone setpoint_gui.py
+```
+
+## Visualization
+1. Robot state publisher
+```bash
+ros2 run spark_softdrone robot_state_publisher.py
+```
+2. Joint state publisher
+```bash
+ros2 run joint_state_publisher_gui joint_state_publisher_gui
 ```
 
 ## Troubleshooting
