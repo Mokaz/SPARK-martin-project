@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!-- Kinematic model, simplified visual, no collisions -->
+<robot name="softdrone" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="PI" value="3.1415926535897931" />
+  <xacro:property name="PI_2" value="1.5707963267948966" />
+  <xacro:property name="PI_5_4" value="3.9269908169872414" />
+
+    <link name="base_link"></link>
+    <link name="cad_link"></link>
+    <link name="fcu_link"></link>
+      
+    <link name="nav_cam_link"></link>
+    <link name="servo_pivot_link"></link>
+    <link name="target_cam_link"></link>
+
+    <joint name="base_link_to_cad_link" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 -${PI_2}" />
+      <parent link="base_link"/>
+      <child link="cad_link" />
+    </joint>
+
+    <joint name="cad_link_to_fcu_link" type="fixed">
+      <origin xyz="0.015064 -0.014986 0.064072" rpy="0 0 ${PI_2}" />
+      <parent link="cad_link"/>
+      <child link="fcu_link" />
+    </joint>
+  
+    <joint name="cad_link_to_nav_cam" type="fixed">
+      <origin xyz="-0.076587 -0.077725 0.036553" rpy="0 0.611 ${PI_5_4}" />
+      <parent link="cad_link"/>
+      <child link="nav_cam_link" />
+    </joint>
+
+    <joint name="cad_link_to_servo_pivot" type="revolute">
+      <origin xyz="0 0.1795 -0.007" rpy="0 0.611 ${PI_2}" />
+      <parent link="cad_link"/>
+      <child link="servo_pivot_link" />
+      <axis xyz="0 1 0" />
+      <limit 
+        lower="-3.14"
+        upper="3.14"
+        effort="1.0"
+        velocity="1.0" />
+    </joint>
+
+    <joint name="servo_pivot_to_target_cam" type="fixed">
+      <origin xyz="0.01901 0 -0.012287" rpy="0 0 0" />
+      <parent link="servo_pivot_link"/>
+      <child link="target_cam_link" />
+    </joint>
+</robot>

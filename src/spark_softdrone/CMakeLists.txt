@@ -90,6 +90,9 @@ install(TARGETS frame_transforms
 # Install launch files.
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
+# Install urdf files.
+install(DIRECTORY urdf DESTINATION share/${PROJECT_NAME}/)
+
 # Install tests
 # install(DIRECTORY test DESTINATION share/${PROJECT_NAME}/)
 
