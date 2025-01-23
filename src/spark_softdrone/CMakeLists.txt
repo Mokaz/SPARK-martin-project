@@ -28,6 +28,8 @@ find_package(nav_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(px4_ros2_cpp REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 #################
 # Setup targets #
@@ -57,6 +59,11 @@ install(TARGETS visualizer DESTINATION lib/${PROJECT_NAME})
 add_executable(t265_to_mavros src/t265_to_mavros.cpp)
 ament_target_dependencies(t265_to_mavros rclcpp nav_msgs geometry_msgs)
 install(TARGETS t265_to_mavros DESTINATION lib/${PROJECT_NAME})
+
+# px4_to_tf.cpp
+add_executable(px4_to_tf src/px4_to_tf.cpp)
+ament_target_dependencies(px4_to_tf rclcpp px4_msgs tf2 tf2_ros)
+install(TARGETS px4_to_tf DESTINATION lib/${PROJECT_NAME})
 
 
 ############
