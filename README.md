@@ -68,11 +68,15 @@ ros2 run spark_softdrone setpoint_gui.py
 ```
 
 ## Visualization
-1. Robot state publisher
+1.
+```bash
+ros2 run spark_softdrone px4_to_tf 
+```
+2. Robot state publisher
 ```bash
 ros2 launch spark_softdrone robot_state_publisher.py
 ```
-2. Joint state publisher
+3. Joint state publisher
 ```bash
 ros2 run joint_state_publisher_gui joint_state_publisher_gui
 ```
