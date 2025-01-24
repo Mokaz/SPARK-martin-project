@@ -58,7 +58,7 @@ install(TARGETS visualizer DESTINATION lib/${PROJECT_NAME})
 
 # t265_to_mavros.cpp
 add_executable(t265_to_mavros src/t265_to_mavros.cpp)
-ament_target_dependencies(t265_to_mavros rclcpp nav_msgs geometry_msgs)
+ament_target_dependencies(t265_to_mavros rclcpp nav_msgs geometry_msgs tf2 tf2_ros tf2_geometry_msgs)
 install(TARGETS t265_to_mavros DESTINATION lib/${PROJECT_NAME})
 
 # px4_to_tf.cpp
