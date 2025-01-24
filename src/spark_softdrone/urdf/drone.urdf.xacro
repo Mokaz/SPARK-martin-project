@@ -3,6 +3,7 @@
 <robot name="softdrone" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931" />
   <xacro:property name="PI_2" value="1.5707963267948966" />
+  <xacro:property name="PI_3_4" value="2.3561944901923448" />
   <xacro:property name="PI_5_4" value="3.9269908169872414" />
 
     <link name="base_link"></link>
@@ -14,13 +15,13 @@
     <link name="target_cam_link"></link>
 
     <joint name="base_link_to_cad_link" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 -${PI_2}" />
+      <origin xyz="0 0 0" rpy="0 0 -${PI_3_4}" />
       <parent link="base_link"/>
       <child link="cad_link" />
     </joint>
 
     <joint name="cad_link_to_fcu_link" type="fixed">
-      <origin xyz="0.015064 -0.014986 0.064072" rpy="0 0 ${PI_2}" />
+      <origin xyz="0.015064 -0.014986 0.064072" rpy="0 0 ${PI_3_4}" />
       <parent link="cad_link"/>
       <child link="fcu_link" />
     </joint>
