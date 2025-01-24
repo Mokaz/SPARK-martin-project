@@ -66,6 +66,11 @@ add_executable(px4_to_tf src/px4_to_tf.cpp)
 ament_target_dependencies(px4_to_tf rclcpp px4_msgs tf2 tf2_ros tf2_geometry_msgs)
 install(TARGETS px4_to_tf DESTINATION lib/${PROJECT_NAME})
 
+# t265_to_map_static_transform_publisher.cpp
+add_executable(t265_to_map_static_transform_publisher src/t265_to_map_static_transform_publisher.cpp)
+ament_target_dependencies(t265_to_map_static_transform_publisher rclcpp tf2 tf2_ros tf2_geometry_msgs)
+install(TARGETS t265_to_map_static_transform_publisher DESTINATION lib/${PROJECT_NAME})
+
 
 ############
 # Install ##

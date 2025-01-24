@@ -46,8 +46,8 @@ private:
         geometry_msgs::msg::TransformStamped transform_stamped;
         try {
             transform_stamped = tf_buffer_.lookupTransform(
-                "fcu_link",         // target
-                "nav_cam_link",     // source
+                "map",         // target
+                "odom_frame",  // source
                 tf2::TimePointZero
             );
         } catch (tf2::TransformException &ex) {

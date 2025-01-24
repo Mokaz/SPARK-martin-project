@@ -56,8 +56,17 @@ def generate_launch_description():
         )
     )
 
+    t265_to_map_static_transform_publisher_node = Node(
+        package='spark_softdrone',
+        executable='t265_to_map_static_transform_publisher',
+        name='t265_to_map_static_transform_publisher',
+        output='screen',
+    )
+
+
     return LaunchDescription([
         robot_state_publisher_launch,
+        t265_to_map_static_transform_publisher_node,
         mavros_launch,
         realsense_launch,
         t265_to_mavros_node,
