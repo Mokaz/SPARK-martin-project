@@ -9,8 +9,9 @@
     <link name="base_link"></link>
     <link name="cad_link"></link>
     <link name="fcu_link"></link>
-      
+       
     <link name="nav_cam_link"></link>
+    <link name="nav_cam_link_tilted"></link>
     <link name="servo_pivot_link"></link>
     <link name="target_cam_link"></link>
 
@@ -25,11 +26,17 @@
       <parent link="cad_link"/>
       <child link="fcu_link" />
     </joint>
-  
+
     <joint name="cad_link_to_nav_cam" type="fixed">
-      <origin xyz="-0.076587 -0.077725 0.036553" rpy="0 0.611 ${PI_5_4}" />
+      <origin xyz="-0.076587 -0.077725 0.036553" rpy="0 0 ${PI_5_4}" />
       <parent link="cad_link"/>
       <child link="nav_cam_link" />
+    </joint>
+  
+    <joint name="nav_cam_to_nav_cam_tilted" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0.611 0" />
+      <parent link="nav_cam_link"/>
+      <child link="nav_cam_link_tilted" />
     </joint>
 
     <joint name="cad_link_to_servo_pivot" type="revolute">
