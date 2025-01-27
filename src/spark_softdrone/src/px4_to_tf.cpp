@@ -23,6 +23,13 @@ public:
       std::bind(&PX4ToTfNode::localPositionCallback, this, std::placeholders::_1)
     );
 
+    geometry_msgs::msg::TransformStamped transform;
+    transform.header.stamp = this->now();        
+    transform.header.frame_id = "map";           
+    transform.child_frame_id = "base_link"; 
+
+    tf_broadcaster_->sendTransform(transform);
+
     RCLCPP_INFO(
       this->get_logger(),
       "PX4 to TF node started"
