@@ -63,10 +63,17 @@ def generate_launch_description():
         output='screen',
     )
 
+    baselink_to_map_transform_publisher_node = Node(
+        package='spark_softdrone',
+        executable='px4_to_tf',
+        name='px4_to_tf',
+        output='screen',
+    )
 
     return LaunchDescription([
         robot_state_publisher_launch,
         t265_to_map_static_transform_publisher_node,
+        baselink_to_map_transform_publisher_node,
         mavros_launch,
         realsense_launch,
         t265_to_mavros_node,
