@@ -45,8 +45,8 @@ private:
         geometry_msgs::msg::TransformStamped transform_stamped;
         try {
             transform_stamped = tf_buffer_.lookupTransform(
-                "map",         // target
-                "odom_frame",  // source
+                "fcu_link",         // target
+                "camera_pose_frame",  // source
                 tf2::TimePointZero
             );
         } catch (tf2::TransformException &ex) {
@@ -54,12 +54,7 @@ private:
             return;
         }
 
-        // Zero out the translation to apply only rotation
-        transform_stamped.transform.translation.x = 0.0;
-        transform_stamped.transform.translation.y = 0.0;
-        transform_stamped.transform.translation.z = 0.0;
-
-        // Transform pose (only orientation will change)
+        // Transform pose
         geometry_msgs::msg::PoseStamped pose_in, pose_out;
         pose_in.header = odom_msg->header;
         pose_in.pose   = odom_msg->pose.pose;
