@@ -26,7 +26,15 @@ public:
     geometry_msgs::msg::TransformStamped transform;
     transform.header.stamp = this->now();        
     transform.header.frame_id = "map";           
-    transform.child_frame_id = "base_link"; 
+    transform.child_frame_id = "base_link";
+
+    transform.transform.translation.x = 0.0;
+    transform.transform.translation.y = 0.0;
+    transform.transform.translation.z = 0.0;
+    transform.transform.rotation.x = 0.0;
+    transform.transform.rotation.y = 0.0;
+    transform.transform.rotation.z = 0.0;
+    transform.transform.rotation.w = 1.0;
 
     tf_broadcaster_->sendTransform(transform);
 
