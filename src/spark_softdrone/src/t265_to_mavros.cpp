@@ -42,7 +42,6 @@ public:
 private:
     void odomCallback(const nav_msgs::msg::Odometry::SharedPtr odom_msg)
     {
-        // Lookup transform from nav_cam_link to fcu_link
         geometry_msgs::msg::TransformStamped transform_stamped;
         try {
             transform_stamped = tf_buffer_.lookupTransform(
@@ -55,7 +54,12 @@ private:
             return;
         }
 
-        // Transform pose
+        // Zero out the translation to apply only rotation
+        transform_stamped.transform.translation.x = 0.0;
+        transform_stamped.transform.translation.y = 0.0;
+        transform_stamped.transform.translation.z = 0.0;
+
+        // Transform pose (only orientation will change)
         geometry_msgs::msg::PoseStamped pose_in, pose_out;
         pose_in.header = odom_msg->header;
         pose_in.pose   = odom_msg->pose.pose;
