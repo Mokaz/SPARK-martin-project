@@ -3,3 +3,4 @@ src/realsense-ros-4.51.1
 build
 install
 log
+.vscode
