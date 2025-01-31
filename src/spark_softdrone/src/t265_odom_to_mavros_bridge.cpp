@@ -46,7 +46,7 @@ private:
             try {
                 // Lookup static transforms (block until they are available)
                 map_to_odom_ = tf_buffer_.lookupTransform("map", "odom_frame", tf2::TimePointZero);
-                cam_to_fcu_ = tf_buffer_.lookupTransform("nav_cam_link_tilted", "fcu_link", tf2::TimePointZero);
+                cam_to_fcu_ = tf_buffer_.lookupTransform("nav_cam_link_tilted", "base_link", tf2::TimePointZero);
                 
                 // Convert to tf2::Transform for efficient reuse
                 tf2::fromMsg(map_to_odom_.transform, map_T_odom_);

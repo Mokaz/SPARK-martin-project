@@ -8,7 +8,6 @@
 
     <link name="base_link"></link>
     <link name="cad_link"></link>
-    <link name="fcu_link"></link>
        
     <link name="nav_cam_link"></link>
     <link name="nav_cam_link_tilted"></link>
@@ -16,15 +15,9 @@
     <link name="target_cam_link"></link>
 
     <joint name="base_link_to_cad_link" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 -${PI_3_4}" />
+      <origin xyz="0.02123 0.0 -0.06407" rpy="0 0 -${PI_3_4}" />
       <parent link="base_link"/>
       <child link="cad_link" />
-    </joint>
-
-    <joint name="cad_link_to_fcu_link" type="fixed">
-      <origin xyz="0.015064 -0.014986 0.064072" rpy="0 0 ${PI_3_4}" />
-      <parent link="cad_link"/>
-      <child link="fcu_link" />
     </joint>
 
     <joint name="cad_link_to_nav_cam" type="fixed">

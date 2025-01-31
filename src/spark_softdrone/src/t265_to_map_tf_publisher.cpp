@@ -34,7 +34,7 @@ public:
 private:
   void timer_callback()
   {
-    const std::string target_frame_ref = "fcu_link";
+    const std::string target_frame_ref = "base_link";
     const std::string source_frame_ref = "nav_cam_link";
 
     const std::string target_frame = "map";
