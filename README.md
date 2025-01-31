@@ -47,9 +47,9 @@ ros2 launch realsense2_camera rs_launch.py
 ```bash
 ros2 launch mavros px4.launch fcu_url:=serial:///dev/ttyTHS1:921600
 ```
-3. Start T265 to MAVROS node:
+3. Start T265 odometry to MAVROS bridge node:
 ```bash
-ros2 run spark_softdrone t265_to_mavros
+ros2 run spark_softdrone t265_odom_to_mavros_bridge
 ```
 
 Or launch everything at once:
@@ -68,9 +68,9 @@ ros2 run spark_softdrone setpoint_gui.py
 ```
 
 ## Visualization
-1.
+1. px4_local_position_tf_broadcaster
 ```bash
-ros2 run spark_softdrone px4_to_tf 
+ros2 run spark_softdrone px4_local_position_tf_broadcaster 
 ```
 2. Robot state publisher
 ```bash
