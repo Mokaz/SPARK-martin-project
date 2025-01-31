@@ -60,7 +60,7 @@ def generate_launch_description():
     servo_pivot_joint_state_publisher_node = Node(
         package='spark_softdrone',
         executable='servo_pivot_joint_state_publisher.py',
-        name='servo_pivot_joint_state_publisher.py',
+        name='servo_pivot_joint_state_publisher',
         output='screen',
     )
 
