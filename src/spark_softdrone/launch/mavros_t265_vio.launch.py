@@ -30,6 +30,7 @@ def generate_launch_description():
         launch_arguments={
             'enable_fisheye1': 'false',
             'enable_fisheye2': 'false',
+            'initial_reset': 'true',
         }.items()
     )
 
