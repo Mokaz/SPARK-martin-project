@@ -11,10 +11,10 @@
 
 using namespace std::chrono_literals;
 
-class T265ToMapStaticFramePublisher : public rclcpp::Node
+class T265ToMapStaticTransformPublisher : public rclcpp::Node
 {
 public:
-  explicit T265ToMapStaticFramePublisher()
+  explicit T265ToMapStaticTransformPublisher()
   : Node("t265_to_map_static_transform_publisher"),
     tf_buffer_(this->get_clock()),
     tf_listener_(tf_buffer_),
@@ -25,10 +25,10 @@ public:
 
     timer_ = this->create_wall_timer(
       1s,  // Timer interval
-      std::bind(&T265ToMapStaticFramePublisher::timer_callback, this)
+      std::bind(&T265ToMapStaticTransformPublisher::timer_callback, this)
     );
 
-    RCLCPP_INFO(this->get_logger(), "T265ToMapStaticFramePublisher node has been started.");
+    RCLCPP_INFO(this->get_logger(), "T265ToMapStaticTransformPublisher node has been started.");
   }
 
 private:
@@ -77,7 +77,6 @@ private:
           "Exceeded maximum number of retries (%d). Unable to publish static transform.",
           max_retries_
         );
-        // Optionally, shut down the node or handle the failure as needed
         rclcpp::shutdown();
       }
     }
@@ -95,7 +94,7 @@ private:
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<T265ToMapStaticFramePublisher>());
+  rclcpp::spin(std::make_shared<T265ToMapStaticTransformPublisher>());
   rclcpp::shutdown();
   return 0;
 }

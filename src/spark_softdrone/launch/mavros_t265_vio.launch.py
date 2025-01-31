@@ -17,10 +17,10 @@ def generate_launch_description():
         get_package_share_directory('mavros'), 'launch'
     )
     mavros_px4_config_dir = os.path.join(
-        get_package_share_directory('spark_softdrone'), 'launch'
+        get_package_share_directory('spark_softdrone'), 'config'
     )
     robot_state_publisher_launch_dir = os.path.join(
-        get_package_share_directory('spark_softdrone'), 'launch'
+        get_package_share_directory('spark_softdrone'), 'launch', 'nodes'
     )
 
     realsense_launch = IncludeLaunchDescription(
@@ -39,42 +39,42 @@ def generate_launch_description():
         ),
         launch_arguments={
             'fcu_url': 'serial:///dev/ttyTHS1:921600',
-            'config_yaml': os.path.join(mavros_px4_config_dir, 'px4_config_spark.yaml'),
+            'config_yaml': os.path.join(mavros_px4_config_dir, 'mavros_px4_config_spark.yaml'),
         }.items()
     )
 
-    t265_to_mavros_node = Node(
+    t265_odom_to_mavros_bridge_node = Node(
         package='spark_softdrone',
-        executable='t265_to_mavros',
-        name='t265_to_mavros_node',
+        executable='t265_odom_to_mavros_bridge',
+        name='t265_odom_to_mavros_bridge_node',
         output='screen',
     )
 
     robot_state_publisher_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(robot_state_publisher_launch_dir, 'robot_state_publisher.py')
+            os.path.join(robot_state_publisher_launch_dir, 'robot_state_publisher.launch.py')
         )
     )
 
-    t265_to_map_static_transform_publisher_node = Node(
+    t265_to_map_tf_publisher_node = Node(
         package='spark_softdrone',
-        executable='t265_to_map_static_transform_publisher',
-        name='t265_to_map_static_transform_publisher',
+        executable='t265_to_map_tf_publisher',
+        name='t265_to_map_tf_publisher',
         output='screen',
     )
 
-    baselink_to_map_transform_publisher_node = Node(
+    px4_local_position_tf_broadcaster_node = Node(
         package='spark_softdrone',
-        executable='px4_to_tf',
-        name='px4_to_tf',
+        executable='px4_local_position_tf_broadcaster',
+        name='px4_local_position_tf_broadcaster',
         output='screen',
     )
 
     return LaunchDescription([
         robot_state_publisher_launch,
-        t265_to_map_static_transform_publisher_node,
-        baselink_to_map_transform_publisher_node,
+        t265_to_map_tf_publisher_node,
+        px4_local_position_tf_broadcaster_node,
         mavros_launch,
         realsense_launch,
-        t265_to_mavros_node,
+        t265_odom_to_mavros_bridge_node,
     ])

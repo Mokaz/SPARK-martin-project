@@ -56,20 +56,20 @@ add_executable(visualizer src/visualizer.cpp)
 ament_target_dependencies(visualizer rclcpp px4_msgs nav_msgs visualization_msgs)
 install(TARGETS visualizer DESTINATION lib/${PROJECT_NAME})
 
-# t265_to_mavros.cpp
-add_executable(t265_to_mavros src/t265_to_mavros.cpp)
-ament_target_dependencies(t265_to_mavros rclcpp nav_msgs geometry_msgs tf2 tf2_ros tf2_geometry_msgs)
-install(TARGETS t265_to_mavros DESTINATION lib/${PROJECT_NAME})
+# t265_odom_to_mavros_bridge.cpp
+add_executable(t265_odom_to_mavros_bridge src/t265_odom_to_mavros_bridge.cpp)
+ament_target_dependencies(t265_odom_to_mavros_bridge rclcpp nav_msgs geometry_msgs tf2 tf2_ros tf2_geometry_msgs)
+install(TARGETS t265_odom_to_mavros_bridge DESTINATION lib/${PROJECT_NAME})
 
-# px4_to_tf.cpp
-add_executable(px4_to_tf src/px4_to_tf.cpp)
-ament_target_dependencies(px4_to_tf rclcpp px4_msgs tf2 tf2_ros tf2_geometry_msgs)
-install(TARGETS px4_to_tf DESTINATION lib/${PROJECT_NAME})
+# px4_local_position_tf_broadcaster.cpp
+add_executable(px4_local_position_tf_broadcaster src/px4_local_position_tf_broadcaster.cpp)
+ament_target_dependencies(px4_local_position_tf_broadcaster rclcpp px4_msgs tf2 tf2_ros tf2_geometry_msgs)
+install(TARGETS px4_local_position_tf_broadcaster DESTINATION lib/${PROJECT_NAME})
 
-# t265_to_map_static_transform_publisher.cpp
-add_executable(t265_to_map_static_transform_publisher src/t265_to_map_static_transform_publisher.cpp)
-ament_target_dependencies(t265_to_map_static_transform_publisher rclcpp tf2 tf2_ros tf2_geometry_msgs)
-install(TARGETS t265_to_map_static_transform_publisher DESTINATION lib/${PROJECT_NAME})
+# t265_to_map_tf_publisher.cpp
+add_executable(t265_to_map_tf_publisher src/t265_to_map_tf_publisher.cpp)
+ament_target_dependencies(t265_to_map_tf_publisher rclcpp tf2 tf2_ros tf2_geometry_msgs)
+install(TARGETS t265_to_map_tf_publisher DESTINATION lib/${PROJECT_NAME})
 
 
 ############
@@ -100,6 +100,9 @@ install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 # Install urdf files.
 install(DIRECTORY urdf DESTINATION share/${PROJECT_NAME}/)
+
+# Install config files.
+install(DIRECTORY config DESTINATION share/${PROJECT_NAME}/)
 
 # Install tests
 # install(DIRECTORY test DESTINATION share/${PROJECT_NAME}/)

@@ -6,10 +6,10 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-class PX4ToTfNode : public rclcpp::Node
+class PX4LocalPositionTfBroadcaster : public rclcpp::Node
 {
 public:
-  PX4ToTfNode() : Node("px4_to_tf_node")
+  PX4LocalPositionTfBroadcaster() : Node("px4_local_position_tf_broadcaster")
   {
     tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
@@ -20,7 +20,7 @@ public:
     sub_local_pos_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
       "/mavros/local_position/pose",
       qos,
-      std::bind(&PX4ToTfNode::localPositionCallback, this, std::placeholders::_1)
+      std::bind(&PX4LocalPositionTfBroadcaster::localPositionCallback, this, std::placeholders::_1)
     );
 
     geometry_msgs::msg::TransformStamped transform;
@@ -70,11 +70,11 @@ private:
 
     tf_broadcaster_->sendTransform(transform);
 
-    // RCLCPP_INFO(
-    //   this->get_logger(),
-    //   "ENU: x=%.5f, y=%.5f, z=%.5f, yaw=%.5f",
-    //   x_enu, y_enu, z_enu, yaw_enu
-    // );
+    RCLCPP_INFO(
+      this->get_logger(),
+      "ENU: x=%.5f, y=%.5f, z=%.5f, yaw=%.5f",
+      x_enu, y_enu, z_enu, yaw_enu
+    );
   }
 
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr sub_local_pos_;
@@ -84,7 +84,7 @@ private:
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<PX4ToTfNode>());
+  rclcpp::spin(std::make_shared<PX4LocalPositionTfBroadcaster>());
   rclcpp::shutdown();
   return 0;
 }

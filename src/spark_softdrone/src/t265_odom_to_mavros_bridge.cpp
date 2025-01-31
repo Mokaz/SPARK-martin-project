@@ -6,11 +6,11 @@
 #include <tf2_ros/transform_listener.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-class T265ToMavrosNode : public rclcpp::Node
+class T265OdomToMavrosBridge : public rclcpp::Node
 {
 public:
-    T265ToMavrosNode()
-    : Node("t265_to_mavros_node"),
+    T265OdomToMavrosBridge()
+    : Node("t265_odom_to_mavros_bridge"),
       tf_buffer_(this->get_clock()),
       tf_listener_(tf_buffer_)
     {
@@ -21,7 +21,7 @@ public:
         sub_odom_ = this->create_subscription<nav_msgs::msg::Odometry>(
             "/camera/pose/sample",
             rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_sensor_data)).best_effort(),
-            std::bind(&T265ToMavrosNode::odomCallback, this, std::placeholders::_1)
+            std::bind(&T265OdomToMavrosBridge::odomCallback, this, std::placeholders::_1)
         );
 
         rclcpp::QoS qos_profile(10);
@@ -97,7 +97,7 @@ private:
 
         geometry_msgs::msg::TwistWithCovarianceStamped twist_cov_msg;
         twist_cov_msg.header.stamp = odom_msg->header.stamp;
-        twist_cov_msg.header.frame_id = "fcu_link";
+        twist_cov_msg.header.frame_id = "map";
         twist_cov_msg.twist.twist.linear = tf2::toMsg(lin_vel);
         twist_cov_msg.twist.twist.angular = tf2::toMsg(ang_vel);
         twist_cov_msg.twist.covariance = odom_msg->twist.covariance;
@@ -123,7 +123,7 @@ private:
 
 int main(int argc, char * argv[]) {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<T265ToMavrosNode>();
+    auto node = std::make_shared<T265OdomToMavrosBridge>();
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;
