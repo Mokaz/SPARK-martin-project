@@ -70,11 +70,11 @@ private:
 
     tf_broadcaster_->sendTransform(transform);
 
-    RCLCPP_INFO(
-      this->get_logger(),
-      "ENU: x=%.5f, y=%.5f, z=%.5f, yaw=%.5f",
-      x_enu, y_enu, z_enu, yaw_enu
-    );
+    // RCLCPP_INFO(
+    //   this->get_logger(),
+    //   "ENU: x=%.5f, y=%.5f, z=%.5f, yaw=%.5f",
+    //   x_enu, y_enu, z_enu, yaw_enu
+    // );
   }
 
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr sub_local_pos_;
