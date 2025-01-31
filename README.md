@@ -54,7 +54,7 @@ ros2 run spark_softdrone t265_odom_to_mavros_bridge
 
 Or launch everything at once:
 ```bash
-ros2 launch spark_softdrone mavros_t265_vio_launch.py
+ros2 launch spark_softdrone mavros_t265_vio.launch.py
 ```
 
 ## Example code
