@@ -57,6 +57,13 @@ def generate_launch_description():
         )
     )
 
+    servo_pivot_joint_state_publisher_node = Node(
+        package='spark_softdrone',
+        executable='servo_pivot_joint_state_publisher.py',
+        name='servo_pivot_joint_state_publisher.py',
+        output='screen',
+    )
+
     t265_to_map_tf_publisher_node = Node(
         package='spark_softdrone',
         executable='t265_to_map_tf_publisher',

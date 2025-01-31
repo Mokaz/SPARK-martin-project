@@ -134,6 +134,7 @@ ament_python_install_package(${PROJECT_NAME})
 install(PROGRAMS
   src/visualizer.py
   src/setpoint_gui.py
+  scripts/servo_pivot_joint_state_publisher.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
