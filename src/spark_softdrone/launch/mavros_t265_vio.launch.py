@@ -80,6 +80,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         robot_state_publisher_launch,
+        servo_pivot_joint_state_publisher_node,
         t265_to_map_tf_publisher_node,
         px4_local_position_tf_broadcaster_node,
         mavros_launch,
