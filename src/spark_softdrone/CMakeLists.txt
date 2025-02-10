@@ -101,6 +101,9 @@ install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 # Install urdf files.
 install(DIRECTORY urdf DESTINATION share/${PROJECT_NAME}/)
 
+# Install meshes
+install(DIRECTORY meshes DESTINATION share/${PROJECT_NAME}/)
+
 # Install config files.
 install(DIRECTORY config DESTINATION share/${PROJECT_NAME}/)
 

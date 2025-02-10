@@ -6,7 +6,17 @@
   <xacro:property name="PI_3_4" value="2.3561944901923448" />
   <xacro:property name="PI_5_4" value="3.9269908169872414" />
 
-    <link name="base_link"></link>
+    <link name="base_link">
+      <visual>
+        <origin xyz="0.02123 0.0 -0.06407" rpy="0 0 -${PI_3_4}" />
+        <geometry>
+          <mesh scale=".001 .001 .001" filename="package://spark_softdrone/meshes/RSISoftDroneV3.stl"/>
+        </geometry>
+        <material name="gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
     <link name="cad_link"></link>
        
     <link name="nav_cam_link"></link>
