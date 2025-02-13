@@ -7,13 +7,23 @@
   <xacro:property name="PI_5_4" value="3.9269908169872414" />
 
     <link name="base_link">
-      <visual>
+      <!-- <visual>
         <origin xyz="0.02123 0.0 -0.06407" rpy="0 0 -${PI_3_4}" />
         <geometry>
           <mesh scale=".001 .001 .001" filename="package://spark_softdrone/meshes/RSISoftDroneV3.stl"/>
         </geometry>
         <material name="gray">
           <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link> -->
+      <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+        <geometry>
+          <mesh scale="1 1 1" filename="package://spark_softdrone/meshes/quadrotor.dae"/>
+        </geometry>
+        <material name="red">
+          <color rgba="0.7 0.3 0.3 1.0"/>
         </material>
       </visual>
     </link>
