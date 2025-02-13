@@ -81,6 +81,12 @@ ros2 launch spark_softdrone robot_state_publisher.py
 ros2 run joint_state_publisher_gui joint_state_publisher_gui
 ```
 
+## Connect to drone through telemetry radio
+On Ground Computer connect telemetry radio and run:
+```bash
+screen /dev/ttyUSB0 57600
+```
+
 ## Troubleshooting
 - If MAVROS complains about connection to Pixhawk though serial, make sure Jetson has permission to use serial device:
 ```bash
