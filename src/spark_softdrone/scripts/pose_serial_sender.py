@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSDurabilityPolicy
 from geometry_msgs.msg import PoseStamped
 import serial
 import json
@@ -8,12 +9,17 @@ import json
 class PoseSerialSender(Node):
     def __init__(self):
         super().__init__('pose_serial_sender')
+        qos_profile = QoSProfile(depth=10)
+        qos_profile.reliability = QoSReliabilityPolicy.BEST_EFFORT
+        qos_profile.durability = QoSDurabilityPolicy.VOLATILE
+
         self.subscription = self.create_subscription(
             PoseStamped,
             '/mavros/local_position/pose',
             self.pose_callback,
-            10)
-        self.subscription  # prevent unused variable warning
+            qos_profile
+        )
+        
         # Open the serial port; adjust the port name and baud rate as needed.
         self.ser = serial.Serial('/dev/ttyUSB0', 57600, timeout=1)
         self.get_logger().info('PoseSerialSender started')
