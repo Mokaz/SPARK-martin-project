@@ -138,6 +138,8 @@ install(PROGRAMS
   src/visualizer.py
   src/setpoint_gui.py
   scripts/servo_pivot_joint_state_publisher.py
+  scripts/pose_serial_sender.py
+  scripts/pose_serial_receiver.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
