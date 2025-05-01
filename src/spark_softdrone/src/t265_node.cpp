@@ -68,3 +68,11 @@ private:
   std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
   std::string T265_SERIAL = declare_parameter("serial", "121222110352");
 };
+
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<T265Node>());
+  rclcpp::shutdown();
+  return 0;
+}
