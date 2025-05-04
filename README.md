@@ -5,9 +5,10 @@ This repository contains the code for my work at SPARKlab during the IAP and spr
 
 ## Prerequisites
 - Ubuntu 22.04 LTS
-- ROS2 Humble
+- ROS2 Iron
 - Intel® RealSense™ T265 camera
-- sudo apt-get install ros-humble-tf2 ros-humble-tf2-geometry-msgs
+- sudo apt-get install ros-iron-tf2 ros-iron-tf2-geometry-msgs
+- sudo apt install ros-iron-xacro
 
 ## Installation
 
@@ -30,7 +31,7 @@ For detailed installation instructions, refer to the [official RealSense SDK doc
 ### 5. Install MAVROS
 ```bash
 # Install MAVROS packages
-sudo apt-get install ros-humble-mavros ros-humble-mavros-extras
+sudo apt-get install ros-iron-mavros ros-humble-iron-extras
 
 # Install GeographicLib datasets
 wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
@@ -74,7 +75,7 @@ ros2 run spark_softdrone px4_local_position_tf_broadcaster
 ```
 2. Robot state publisher
 ```bash
-ros2 launch spark_softdrone robot_state_publisher.py
+ros2 launch spark_softdrone robot_state_publisher.launch.py
 ```
 3. Joint state publisher
 ```bash
