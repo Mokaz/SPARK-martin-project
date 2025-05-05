@@ -71,8 +71,9 @@ add_executable(t265_to_map_tf_publisher src/t265_to_map_tf_publisher.cpp)
 ament_target_dependencies(t265_to_map_tf_publisher rclcpp tf2 tf2_ros tf2_geometry_msgs)
 install(TARGETS t265_to_map_tf_publisher DESTINATION lib/${PROJECT_NAME})
 
+# t265_node.cpp
 add_executable(t265_node src/t265_node.cpp)
-ament_target_dependencies(t265_node rclcpp sensor_msgs geometry_msgs nav_msgs tf2_ros)
+ament_target_dependencies(t265_node rclcpp sensor_msgs geometry_msgs tf2_geometry_msgs nav_msgs tf2 tf2_ros)
 target_link_libraries(t265_node realsense2)   # librealsense
 install(TARGETS t265_node DESTINATION lib/${PROJECT_NAME})
 
