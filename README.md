@@ -1,4 +1,4 @@
-# SPARK-martin-project
+# Hydra UAV - SPARKlab
 
 ## Overview
 This repository contains the code for my work at SPARKlab during the IAP and spring semester of 2025 at MIT.
