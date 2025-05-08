@@ -39,12 +39,12 @@ find_package(tf2_geometry_msgs REQUIRED)
 include_directories(include)
 
 # Add frame_transforms lib
-add_library(frame_transforms SHARED src/lib/frame_transforms.cpp)
-ament_target_dependencies(frame_transforms Eigen3 geometry_msgs sensor_msgs)
-target_include_directories(frame_transforms PUBLIC
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
-	$<INSTALL_INTERFACE:include/${PROJECT_NAME}>
-)
+# add_library(frame_transforms SHARED src/lib/frame_transforms.cpp)
+# ament_target_dependencies(frame_transforms Eigen3 geometry_msgs sensor_msgs)
+# target_include_directories(frame_transforms PUBLIC
+# 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
+# 	$<INSTALL_INTERFACE:include/${PROJECT_NAME}>
+# )
 
 # offboard_control_srv
 add_executable(offboard_control_srv src/offboard_control_srv.cpp)
@@ -71,6 +71,12 @@ add_executable(t265_to_map_tf_publisher src/t265_to_map_tf_publisher.cpp)
 ament_target_dependencies(t265_to_map_tf_publisher rclcpp tf2 tf2_ros tf2_geometry_msgs)
 install(TARGETS t265_to_map_tf_publisher DESTINATION lib/${PROJECT_NAME})
 
+# t265_node.cpp
+add_executable(t265_node src/t265_node.cpp)
+ament_target_dependencies(t265_node rclcpp sensor_msgs geometry_msgs tf2_geometry_msgs nav_msgs tf2 tf2_ros)
+target_link_libraries(t265_node realsense2)   # librealsense
+install(TARGETS t265_node DESTINATION lib/${PROJECT_NAME})
+
 
 ############
 # Install ##
@@ -79,21 +85,21 @@ install(TARGETS t265_to_map_tf_publisher DESTINATION lib/${PROJECT_NAME})
 # Export information to downstream packages
 ament_export_dependencies(ament_cmake rclcpp rosidl_default_runtime eigen3_cmake_module Eigen3 px4_msgs geometry_msgs sensor_msgs nav_msgs visualization_msgs)
 
-ament_export_targets(export_frame_transforms HAS_LIBRARY_TARGET)
+# ament_export_targets(export_frame_transforms HAS_LIBRARY_TARGET)
 
 ament_export_include_directories(include)
-ament_export_libraries(frame_transforms)
+# ament_export_libraries(frame_transforms)
 
 # Install header files
 install(DIRECTORY include/${PROJECT_NAME}/ DESTINATION include/${PROJECT_NAME})
 
-install(TARGETS frame_transforms
-	EXPORT export_frame_transforms
-	ARCHIVE DESTINATION lib
-	LIBRARY DESTINATION lib
-	RUNTIME DESTINATION bin
-	INCLUDES DESTINATION include
-)
+# install(TARGETS frame_transforms
+# 	EXPORT export_frame_transforms
+# 	ARCHIVE DESTINATION lib
+# 	LIBRARY DESTINATION lib
+# 	RUNTIME DESTINATION bin
+# 	INCLUDES DESTINATION include
+# )
 
 # Install launch files.
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
