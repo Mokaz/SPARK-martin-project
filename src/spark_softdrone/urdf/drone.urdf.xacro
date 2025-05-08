@@ -18,7 +18,7 @@
       </visual>
     </link> -->
       <visual>
-        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 ${PI}" />
         <geometry>
           <mesh scale="1 1 1" filename="package://spark_softdrone/meshes/quadrotor.dae"/>
         </geometry>
@@ -31,8 +31,9 @@
        
     <link name="nav_cam_link"></link>
     <link name="nav_cam_link_tilted"></link>
-    <link name="servo_pivot_link"></link>
-    <link name="target_cam_link"></link>
+    <!-- <link name="servo_pivot_link"></link> -->
+    <!-- <link name="target_cam_link"></link> -->
+    <link name="rgbd_cam_link"></link>
 
     <joint name="base_link_to_cad_link" type="fixed">
       <origin xyz="0.02123 0.0 -0.06407" rpy="0 0 -${PI_3_4}" />
@@ -52,7 +53,13 @@
       <child link="nav_cam_link_tilted" />
     </joint>
 
-    <joint name="cad_link_to_servo_pivot" type="revolute">
+    <joint name="cad_link_to_rgbd_cam_link" type="fixed">
+      <origin xyz="0 0.1795 -0.007" rpy="0 0.611 ${PI_2}" />
+      <parent link="cad_link"/>
+      <child link="rgbd_cam_link" />
+    </joint>
+
+    <!-- <joint name="cad_link_to_servo_pivot" type="revolute">
       <origin xyz="0 0.1795 -0.007" rpy="0 0.611 ${PI_2}" />
       <parent link="cad_link"/>
       <child link="servo_pivot_link" />
@@ -68,5 +75,5 @@
       <origin xyz="0.01901 0 -0.012287" rpy="0 0 0" />
       <parent link="servo_pivot_link"/>
       <child link="target_cam_link" />
-    </joint>
+    </joint> -->
 </robot>

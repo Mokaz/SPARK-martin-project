@@ -41,7 +41,7 @@ public:
               std::bind(&T265Node::timerCallback, this));
 
     RCLCPP_INFO(get_logger(),
-      "Started T265 node – publishing rs_t265/odom and rs_t265/imu");
+      "Started T265 node - publishing rs_t265/odom and rs_t265/imu");
   }
 
 private:

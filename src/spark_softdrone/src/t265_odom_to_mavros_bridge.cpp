@@ -17,10 +17,9 @@ public:
         // Retrieve static transforms once during initialization
         getStaticTransforms();
 
-        // Subscriber and publishers remain the same as before
         sub_odom_ = this->create_subscription<nav_msgs::msg::Odometry>(
-            "/camera/pose/sample",
-            rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_sensor_data)).best_effort(),
+            "rs_t265/odom",
+            10,
             std::bind(&T265OdomToMavrosBridge::odomCallback, this, std::placeholders::_1)
         );
 
