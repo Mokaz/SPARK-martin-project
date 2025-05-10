@@ -48,17 +48,25 @@ ros2 launch realsense2_camera rs_launch.py base_frame_id:=rgbd_link
 ```bash
 ros2 launch mavros px4.launch fcu_url:=serial:///dev/ttyTHS1:921600
 ```
-3. Start T265 node
+3. Robot state publisher
+```bash
+ros2 launch spark_softdrone robot_state_publisher.launch.py
+```
+4. Start T265 node
 ```bash
 ros2 run spark_softdrone t265_node
 ```
-3. Start T265 to map publisher
+5. Start T265 to map publisher
 ```bash
 ros2 run spark_softdrone t265_to_map_tf_publisher
 ```
-4. Start T265 odometry to MAVROS bridge node:
+6. Start T265 odometry to MAVROS bridge node:
 ```bash
 ros2 run spark_softdrone t265_odom_to_mavros_bridge
+```
+7. px4_local_position_tf_broadcaster
+```bash
+ros2 run spark_softdrone px4_local_position_tf_broadcaster 
 ```
 
 Or launch everything at once:
@@ -74,20 +82,6 @@ ros2 run spark_softdrone offboard_control_srv
 2. Start GUI for publishing setpoints (on GCS computer):
 ```bash
 ros2 run spark_softdrone setpoint_gui.py
-```
-
-## Visualization
-1. px4_local_position_tf_broadcaster
-```bash
-ros2 run spark_softdrone px4_local_position_tf_broadcaster 
-```
-2. Robot state publisher
-```bash
-ros2 launch spark_softdrone robot_state_publisher.launch.py
-```
-3. Joint state publisher
-```bash
-ros2 run joint_state_publisher_gui joint_state_publisher_gui
 ```
 
 ## Connect to drone through telemetry radio
