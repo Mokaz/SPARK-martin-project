@@ -48,6 +48,10 @@ ros2 launch realsense2_camera rs_launch.py
 ```bash
 ros2 launch mavros px4.launch fcu_url:=serial:///dev/ttyTHS1:921600
 ```
+3. Start T265 node
+```bash
+ros2 run spark_softdrone t265_node
+```
 3. Start T265 to map publisher
 ```bash
 ros2 run spark_softdrone t265_to_map_tf_publisher
