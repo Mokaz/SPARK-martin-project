@@ -31,7 +31,7 @@ For detailed installation instructions, refer to the [official RealSense SDK doc
 ### 5. Install MAVROS
 ```bash
 # Install MAVROS packages
-sudo apt-get install ros-iron-mavros ros-humble-iron-extras
+sudo apt-get install ros-iron-mavros ros-iron-mavros-extras
 
 # Install GeographicLib datasets
 wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
