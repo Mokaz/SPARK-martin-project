@@ -41,7 +41,7 @@ sudo bash ./install_geographiclib_datasets.sh
 ## Usage
 1. Start the RealSense camera node:
 ```bash
-ros2 launch realsense2_camera rs_launch.py
+ros2 launch realsense2_camera rs_launch.py base_frame_id:=rgbd_link
 ```
 
 2. Start MAVROS:
