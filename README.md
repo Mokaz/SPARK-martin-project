@@ -66,7 +66,10 @@ ros2 run spark_softdrone px4_local_position_tf_broadcaster
 
 8. Start the RealSense camera node:
 ```bash
-ros2 launch realsense2_camera rs_launch.py base_frame_id:=rgbd_link
+ros2 launch realsense2_camera rs_launch.py \
+    base_frame_id:=rgbd_link \
+    depth_module.profile:=1280x720x30 \
+    rgb_camera.profile:=1280x720x30
 ```
 
 Or launch everything at once: (OLD)
