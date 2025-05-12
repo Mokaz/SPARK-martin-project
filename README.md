@@ -25,7 +25,7 @@ git submodule update --init --recursive
 
 ### 3. Install RealSense SDK
 This project requires librealsense-2.53.1, which is the latest version compatible with the T265 camera.
-For detailed installation instructions, refer to the [official RealSense SDK documentation](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md).
+For detailed installation instructions on how to install it on the Jetson, refer to this repo's wiki page on the subject.
 
 
 ### 5. Install MAVROS
