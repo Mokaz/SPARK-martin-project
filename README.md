@@ -39,11 +39,6 @@ sudo bash ./install_geographiclib_datasets.sh
 ```
 
 ## Usage
-1. Start the RealSense camera node:
-```bash
-ros2 launch realsense2_camera rs_launch.py base_frame_id:=rgbd_link
-```
-
 2. Start MAVROS:
 ```bash
 ros2 launch mavros px4.launch fcu_url:=serial:///dev/ttyTHS1:921600
@@ -69,7 +64,12 @@ ros2 run spark_softdrone t265_odom_to_mavros_bridge
 ros2 run spark_softdrone px4_local_position_tf_broadcaster 
 ```
 
-Or launch everything at once:
+8. Start the RealSense camera node:
+```bash
+ros2 launch realsense2_camera rs_launch.py base_frame_id:=rgbd_link
+```
+
+Or launch everything at once: (OLD)
 ```bash
 ros2 launch spark_softdrone mavros_t265_vio.launch.py
 ```
