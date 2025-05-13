@@ -25,7 +25,7 @@ git submodule update --init --recursive
 
 ### 3. Install RealSense SDK
 This project requires librealsense-2.53.1, which is the latest version compatible with the T265 camera.
-For detailed installation instructions, refer to the [official RealSense SDK documentation](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md).
+For detailed installation instructions on how to install it on the Jetson, refer to this repo's wiki page on the subject.
 
 
 ### 5. Install MAVROS
@@ -39,11 +39,6 @@ sudo bash ./install_geographiclib_datasets.sh
 ```
 
 ## Usage
-1. Start the RealSense camera node:
-```bash
-ros2 launch realsense2_camera rs_launch.py base_frame_id:=rgbd_link
-```
-
 2. Start MAVROS:
 ```bash
 ros2 launch mavros px4.launch fcu_url:=serial:///dev/ttyTHS1:921600
@@ -69,7 +64,15 @@ ros2 run spark_softdrone t265_odom_to_mavros_bridge
 ros2 run spark_softdrone px4_local_position_tf_broadcaster 
 ```
 
-Or launch everything at once:
+8. Start the RealSense camera node:
+```bash
+ros2 launch realsense2_camera rs_launch.py \
+    base_frame_id:=rgbd_link \
+    depth_module.profile:=1280x720x30 \
+    rgb_camera.profile:=1280x720x30
+```
+
+Or launch everything at once: (OLD)
 ```bash
 ros2 launch spark_softdrone mavros_t265_vio.launch.py
 ```
