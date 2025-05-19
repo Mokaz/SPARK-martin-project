@@ -10,6 +10,9 @@ from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 from launch_ros.actions import Node
 
 def generate_launch_description():
+    robot_state_publisher_launch_dir = os.path.join(
+        get_package_share_directory('spark_softdrone'), 'launch', 'nodes'
+    )
     realsense_launch_dir = os.path.join(
         get_package_share_directory('realsense2_camera'), 'launch'
     )
@@ -18,20 +21,6 @@ def generate_launch_description():
     )
     mavros_px4_config_dir = os.path.join(
         get_package_share_directory('spark_softdrone'), 'config'
-    )
-    robot_state_publisher_launch_dir = os.path.join(
-        get_package_share_directory('spark_softdrone'), 'launch', 'nodes'
-    )
-
-    realsense_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(realsense_launch_dir, 'rs_launch.py')
-        ), 
-        launch_arguments={
-            'enable_fisheye1': 'false',
-            'enable_fisheye2': 'false',
-            'initial_reset': 'true',
-        }.items()
     )
 
     mavros_launch = IncludeLaunchDescription(
@@ -44,23 +33,16 @@ def generate_launch_description():
         }.items()
     )
 
-    t265_odom_to_mavros_bridge_node = Node(
-        package='spark_softdrone',
-        executable='t265_odom_to_mavros_bridge',
-        name='t265_odom_to_mavros_bridge_node',
-        output='screen',
-    )
-
     robot_state_publisher_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(robot_state_publisher_launch_dir, 'robot_state_publisher.launch.py')
         )
     )
 
-    servo_pivot_joint_state_publisher_node = Node(
+    t265_node = Node(
         package='spark_softdrone',
-        executable='servo_pivot_joint_state_publisher.py',
-        name='servo_pivot_joint_state_publisher',
+        executable='t265_node',
+        name='t265_node',
         output='screen',
     )
 
@@ -71,6 +53,13 @@ def generate_launch_description():
         output='screen',
     )
 
+    t265_odom_to_mavros_bridge_node = Node(
+        package='spark_softdrone',
+        executable='t265_odom_to_mavros_bridge',
+        name='t265_odom_to_mavros_bridge_node',
+        output='screen',
+    )
+
     px4_local_position_tf_broadcaster_node = Node(
         package='spark_softdrone',
         executable='px4_local_position_tf_broadcaster',
@@ -78,12 +67,23 @@ def generate_launch_description():
         output='screen',
     )
 
+    realsense_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(realsense_launch_dir, 'rs_launch.py')
+        ), 
+        launch_arguments={
+            'base_frame_id': 'rgbd_link',
+            'depth_module.profile': '1280x720x30',
+            'rgb_camera.profile': '1280x720x30',
+        }.items()
+    )
+
     return LaunchDescription([
-        robot_state_publisher_launch,
-        servo_pivot_joint_state_publisher_node,
-        t265_to_map_tf_publisher_node,
-        px4_local_position_tf_broadcaster_node,
         mavros_launch,
-        realsense_launch,
+        robot_state_publisher_launch,
+        t265_node,
+        t265_to_map_tf_publisher_node,
         t265_odom_to_mavros_bridge_node,
+        px4_local_position_tf_broadcaster_node,
+        realsense_launch
     ])
