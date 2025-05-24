@@ -100,7 +100,9 @@ ros2 run rviz2 rviz2 --ros-args -d /path/to/src/spark_softdrone/rviz/softdrone.r
 ```
 
 ## Connect to drone through telemetry radio
-On Ground Computer connect telemetry radio and run:
+Connect the telemetry radio to the Jetson by USB on the drone. See details [wiki page on Baseboard setup](https://github.com/Mokaz/SPARK-martin-project/wiki/Baseboard-setup#jetson-configured-system-services) for info on how this was set up.
+
+On Ground Computer connect the telemetry radio and run:
 ```bash
 screen /dev/ttyUSB0 57600
 ```
