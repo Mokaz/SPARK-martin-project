@@ -70,6 +70,7 @@ ros2 launch spark_softdrone full_localization_stack.launch.py
 ```
 
 ## Run Hydra
+If you haven't already, make sure to make a separate workspace for Hydra and install it there. Follow the [guide](https://github.com/Mokaz/SPARK-martin-project/wiki/Running-Hydra) on the wiki.
 ### Source and run Hydra
 ```bash
 cd ~/hydra_ws
