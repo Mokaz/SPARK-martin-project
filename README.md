@@ -4,13 +4,14 @@
 This repository contains the code for my work at SPARKlab during the IAP and spring semester of 2025 at MIT.
 
 ## Prerequisites
+- Intel® RealSense™ T265 and D455 cameras 
 - Ubuntu 22.04 LTS
 - ROS2 Iron
-- Intel® RealSense™ T265 camera
-- sudo apt-get install ros-iron-tf2 ros-iron-tf2-geometry-msgs
-- sudo apt install ros-iron-xacro
+- MAVROS for ROS2 Iron
+- librealsense-2.53.1: the latest version compatible with the T265 camera. For detailed installation instructions on how to install it on the Jetson, refer to this repo's [wiki page](https://github.com/Mokaz/SPARK-martin-project/wiki/Installing-Prerequisites) on the subject.
+- realsense-ros build 4.54.1: Note that changes to this package will be needed; please refer to the wiki page mentioned above for instructions. 
 
-## Installation
+## Quickstart
 
 ### 1. Clone the Repository
 ```bash
@@ -23,48 +24,38 @@ cd SPARK-martin-project
 git submodule update --init --recursive
 ```
 
-### 3. Install RealSense SDK
-This project requires librealsense-2.53.1, which is the latest version compatible with the T265 camera.
-For detailed installation instructions on how to install it on the Jetson, refer to this repo's wiki page on the subject.
-
-
-### 5. Install MAVROS
+### 3. Build using colocon from your workspace
 ```bash
-# Install MAVROS packages
-sudo apt-get install ros-iron-mavros ros-iron-mavros-extras
-
-# Install GeographicLib datasets
-wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
-sudo bash ./install_geographiclib_datasets.sh
+colcon build
 ```
 
 ## Usage
-2. Start MAVROS:
+1. Start MAVROS:
 ```bash
 ros2 launch mavros px4.launch fcu_url:=serial:///dev/ttyTHS1:921600
 ```
-3. Robot state publisher
+2. Robot state publisher
 ```bash
 ros2 launch spark_softdrone robot_state_publisher.launch.py
 ```
-4. Start T265 node
+3. Start T265 node
 ```bash
 ros2 run spark_softdrone t265_node
 ```
-5. Start T265 to map publisher
+4. Start T265 to map publisher
 ```bash
 ros2 run spark_softdrone t265_to_map_tf_publisher
 ```
-6. Start T265 odometry to MAVROS bridge node:
+5. Start T265 odometry to MAVROS bridge node:
 ```bash
 ros2 run spark_softdrone t265_odom_to_mavros_bridge
 ```
-7. px4_local_position_tf_broadcaster
+6. px4_local_position_tf_broadcaster
 ```bash
 ros2 run spark_softdrone px4_local_position_tf_broadcaster 
 ```
 
-8. Start the RealSense camera node:
+7. Start the RealSense camera node for D455:
 ```bash
 ros2 launch realsense2_camera rs_launch.py \
     base_frame_id:=rgbd_link \
@@ -73,9 +64,9 @@ ros2 launch realsense2_camera rs_launch.py \
     device_type:=D455
 ```
 
-Or launch everything at once: (OLD)
+Or launch everything at once: (Unstable)
 ```bash
-ros2 launch spark_softdrone mavros_t265_vio.launch.py
+ros2 launch spark_softdrone full_localization_stack.launch.py
 ```
 
 ## Example code
