@@ -69,6 +69,20 @@ Or launch everything at once: (Unstable)
 ros2 launch spark_softdrone full_localization_stack.launch.py
 ```
 
+## Run Hydra
+### Source and run Hydra
+```bash
+cd ~/hydra_ws
+source install/setup.bash
+ros2 launch hydra_ros UAV.launch.yaml
+```
+
+### Run Semantic segmentation
+```bash
+ros2 launch semantic_inference_ros closed_set.yaml model_file:=ade20k-efficientvit_seg_l2.onnx
+```
+
+
 ## Example code
 1. Start and arm drone in offboard mode:
 ```bash
