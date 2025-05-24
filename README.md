@@ -110,3 +110,4 @@ screen /dev/ttyUSB0 57600
 ```bash
 sudo chmod 666 /dev/ttyTHS1
 ```
+- If T265 node does not publish any topics, simply unplug and replug the T265 camera. 
