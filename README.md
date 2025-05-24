@@ -83,7 +83,6 @@ ros2 launch hydra_ros UAV.launch.yaml
 ros2 launch semantic_inference_ros closed_set.yaml model_file:=ade20k-efficientvit_seg_l2.onnx
 ```
 
-
 ## Example code
 1. Start and arm drone in offboard mode:
 ```bash
@@ -92,6 +91,12 @@ ros2 run spark_softdrone offboard_control_srv
 2. Start GUI for publishing setpoints (on GCS computer):
 ```bash
 ros2 run spark_softdrone setpoint_gui.py
+```
+
+## Visualization
+Source the installation and run rviz2 (outdated)
+```bash
+ros2 run rviz2 rviz2 --ros-args -d /path/to/src/spark_softdrone/rviz/softdrone.rviz
 ```
 
 ## Connect to drone through telemetry radio
