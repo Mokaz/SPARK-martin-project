@@ -75,6 +75,7 @@ def generate_launch_description():
             'base_frame_id': 'rgbd_link',
             'depth_module.profile': '1280x720x30',
             'rgb_camera.profile': '1280x720x30',
+            'device_type': 'D455',
         }.items()
     )
 
