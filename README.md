@@ -69,6 +69,11 @@ Or launch everything at once: (Unstable)
 ros2 launch spark_softdrone full_localization_stack.launch.py
 ```
 
+Or launch nodes 2-5 + t265_pose_tf_broadcaster (more stable, no MAVROS):
+```bash
+ros2 launch spark_softdrone pure_t265_localization.launch.py
+```
+
 ## Run Hydra
 If you haven't already, make sure to make a separate workspace for Hydra and install it there. Follow the [guide](https://github.com/Mokaz/SPARK-martin-project/wiki/Running-Hydra) on the wiki.
 ### Source and run Hydra
