@@ -58,9 +58,10 @@ private:
     tf2::Matrix3x3(q_enu).getRPY(roll_enu, pitch_enu, yaw_enu);
 
     geometry_msgs::msg::TransformStamped transform;
-    transform.header.stamp = this->now();        // or msg->header.stamp if synchronized
+    transform.header.stamp = this->now();        // or msg->header.stamp
+    // transform.header.stamp = msg->header.stamp;        // or msg->header.stamp
     transform.header.frame_id = "map";           // ENU world frame
-    transform.child_frame_id = "base_link";      // must match your URDF base_link
+    transform.child_frame_id = "base_link";      
 
     transform.transform.translation.x = x_enu;
     transform.transform.translation.y = y_enu;

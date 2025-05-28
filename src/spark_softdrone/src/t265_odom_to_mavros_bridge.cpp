@@ -105,7 +105,7 @@ private:
         pub_twist_cov_->publish(twist_cov_msg);
     }
 
-    // Subscriber and publishers (same as before)
+    // Subscriber and publishers
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr sub_odom_;
     rclcpp::Publisher<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pub_pose_cov_;
     rclcpp::Publisher<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr pub_twist_cov_;

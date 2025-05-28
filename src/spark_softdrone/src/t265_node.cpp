@@ -25,18 +25,17 @@ public:
   : Node("t265_node"),
     tf_broadcaster_(std::make_shared<tf2_ros::TransformBroadcaster>(this))
   {
-    // Configure T265 --------------------------------------------------------
+    // Configure T265
     rs2::config cfg;
     cfg.enable_stream(RS2_STREAM_ACCEL);
     cfg.enable_stream(RS2_STREAM_GYRO);
     cfg.enable_stream(RS2_STREAM_POSE);
     pipe_.start(cfg);
 
-    // Publishers ------------------------------------------------------------
+    // Publishers
     odom_pub_ = create_publisher<nav_msgs::msg::Odometry>("rs_t265/odom", 10);
     imu_pub_  = create_publisher<sensor_msgs::msg::Imu>  ("rs_t265/imu",  10);
 
-    // 100 Hz timer ----------------------------------------------------------
     timer_ = create_wall_timer(10ms,
               std::bind(&T265Node::timerCallback, this));
 
@@ -45,7 +44,6 @@ public:
   }
 
 private:
-  // -------------------------  periodic work  ------------------------------
   void timerCallback()
   {
     rs2::frameset fs = pipe_.wait_for_frames();
@@ -130,7 +128,6 @@ private:
     tf_broadcaster_->sendTransform(tf);
   }
 
-  // ------------------------------  members  -------------------------------
   rs2::pipeline pipe_;
 
   sensor_msgs::msg::Imu                         imu_msg_;

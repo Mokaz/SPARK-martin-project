@@ -71,6 +71,11 @@ add_executable(t265_to_map_tf_publisher src/t265_to_map_tf_publisher.cpp)
 ament_target_dependencies(t265_to_map_tf_publisher rclcpp tf2 tf2_ros tf2_geometry_msgs)
 install(TARGETS t265_to_map_tf_publisher DESTINATION lib/${PROJECT_NAME})
 
+# t265_pose_tf_broadcaster.cpp
+add_executable(t265_pose_tf_broadcaster src/t265_pose_tf_broadcaster.cpp)
+ament_target_dependencies(t265_pose_tf_broadcaster rclcpp sensor_msgs geometry_msgs tf2_geometry_msgs tf2 tf2_ros)
+install(TARGETS t265_pose_tf_broadcaster DESTINATION lib/${PROJECT_NAME})
+
 # t265_node.cpp
 add_executable(t265_node src/t265_node.cpp)
 ament_target_dependencies(t265_node rclcpp sensor_msgs geometry_msgs tf2_geometry_msgs nav_msgs tf2 tf2_ros)
