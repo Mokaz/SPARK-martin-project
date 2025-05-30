@@ -78,8 +78,6 @@ ros2 launch spark_softdrone pure_t265_localization.launch.py
 If you haven't already, make sure to make a separate workspace for Hydra and install it there. Follow the [guide](https://github.com/Mokaz/SPARK-martin-project/wiki/Running-Hydra) on the wiki.
 ### Source and run Hydra
 ```bash
-cd ~/hydra_ws
-source install/setup.bash
 ros2 launch hydra_ros UAV.launch.yaml
 ```
 
