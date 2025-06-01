@@ -69,7 +69,7 @@ Or launch everything at once: (Unstable)
 ros2 launch spark_softdrone full_localization_stack.launch.py
 ```
 
-Or launch nodes 2-5 + t265_pose_tf_broadcaster (more stable, no MAVROS):
+Or launch nodes 2 through 5 + [t265_pose_tf_broadcaster](https://github.com/Mokaz/SPARK-martin-project/blob/main/src/spark_softdrone/src/t265_pose_tf_broadcaster.cpp) (more stable, no MAVROS):
 ```bash
 ros2 launch spark_softdrone pure_t265_localization.launch.py
 ```
@@ -97,9 +97,9 @@ ros2 run spark_softdrone setpoint_gui.py
 ```
 
 ## Visualization
-Source the installation and run rviz2 (outdated)
+Source the installation and run rviz2
 ```bash
-ros2 run rviz2 rviz2 --ros-args -d /path/to/src/spark_softdrone/rviz/softdrone.rviz
+ros2 run rviz2 rviz2 --ros-args -d /src/spark_softdrone/rviz/localization.rviz
 ```
 
 ## Connect to drone through telemetry radio
