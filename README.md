@@ -1,7 +1,7 @@
 # Hydra UAV - SPARKlab
 
 ## Overview
-This repository contains the code for running Hydra on the drone.
+This repository contains the code for my work at SPARKlab during the IAP and spring semester of 2025 at MIT.
 
 ## Prerequisites
 - Intel® RealSense™ T265 and D455 cameras 
